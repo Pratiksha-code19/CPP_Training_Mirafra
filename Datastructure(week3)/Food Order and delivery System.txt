@@ -1,0 +1,123 @@
+
+
+1. Core Classes and Structure
+a. MenuItemNode (Linked List Node for Menu Item)
+This represents each menu item in a restaurant's menu. Each MenuItemNode contains:
+
+name: The name of the menu item.
+
+price: The price of the menu item.
+
+next: Pointer to the next menu item (for linked list structure).
+
+Linked List Structure: The menu items are connected in a linked list format, where each node points to the next item.
+----------------------------------------------------------------------------------------------------------------------------
+b. Restaurant (Restaurant Class)
+Each restaurant has:
+
+name: The name of the restaurant.
+menuHead: Points to the first MenuItemNode in the restaurant's menu (the head of the linked list).
+Methods:
+
+addMenuItem: Adds a menu item to the restaurant's menu by inserting a new MenuItemNode at the head of the linked list.
+display: Displays all menu items in the linked list format.
+
+-------------------------------------------------------------------------------------------------------------------------------
+c. Order (Order Class)
+Each order represents an order placed by a customer from a restaurant. It has:
+
+customerName: Name of the customer placing the order.
+restaurant: Pointer to the restaurant from which the order is placed.
+items: A vector storing the MenuItemNode pointers corresponding to the items ordered by the customer.
+Methods:
+
+addItem: Adds a menu item to the order.
+totalPrice: Calculates the total price of the order by summing the prices of all items.
+display: Displays the order details (customer name, items ordered, and total price).
+d. CircularOrderQueue (Circular Queue for Orders)
+A circular linked list to manage orders that are placed:
+
+head: Points to the first order in the queue.
+tail: Points to the last order in the queue.
+Methods:
+
+enqueue: Adds an order to the queue.
+processOrder: Processes the order at the front of the queue, removing it after processing.
+e. FoodOrderingSystem (Main System Class)
+This class manages the overall food ordering process:
+
+restaurantMap: A hash map (unordered map) to store restaurants by name.
+orderQueue: A circular queue that manages all placed orders.
+Methods:
+
+addRestaurant: Adds a new restaurant to the system.
+addMenuItemToRestaurant: Adds a menu item to an existing restaurant.
+displayRestaurants: Displays all restaurants and their menu items.
+placeOrder: Allows a customer to place an order with specified items.
+processOrder: Processes and removes the next order from the queue.
+showMenu: Displays the main menu and handles user input.
+System Flow and Diagram
+The system flow can be visualized with the following interactions:
+
+Restaurant Creation:
+
+User adds a restaurant (e.g., "Restaurant A").
+The system creates a Restaurant object and stores it in restaurantMap.
+Menu Item Addition:
+
+User adds a menu item to a restaurant (e.g., "Burger" for "Restaurant A").
+A new MenuItemNode is created, added to the linked list of the restaurant's menu (menuHead).
+Placing an Order:
+
+User places an order by specifying the customer name, restaurant name, and items.
+The system looks up the restaurant in restaurantMap, finds the menu items, and creates an Order object.
+The items ordered are added to the Order object using addItem (this stores pointers to MenuItemNode).
+The order is then enqueued in the CircularOrderQueue.
+Processing Orders:
+
+The system dequeues the next order from the circular queue and displays its details.
+The order is processed and removed from the queue.
+Diagrammatic Representation:
+sql
+Copy code
+  +--------------------+        +--------------------+
+  |   FoodOrderingSystem|        |     CircularOrderQueue|
+  +--------------------+        +--------------------+
+            |                             |
+        [1] Add Restaurant                | Enqueue Orders
+            |                             v
+            v                    +------------------+
++-----------------+   [2] Add Menu Item to Menu |  head
+|  Restaurant    |-----------------------------+---------->|
++-----------------+                             |
+       |                                        |
+    +--------------+                       +-----------+
+    | MenuItemNode|                       | Order Node|
+    +--------------+                       +-----------+
+       | [3] Add Menu Item                  |
+       v                                    v
+  +--------------+   [4] Add Items to Order   |
+  | MenuItemNode |-------------------------->|
+  +--------------+                           |
+       |                                     |
+       v                                     v
++-------------------+    [5] Place Order  +-----------------+
+| Order             |------------------->| Order Queue      |
++-------------------+                      +-----------------+ 
+           |                                 |
+           v                                 v
+     [6] Process Order                     Next Order (dequeued)
+           |
+           v
+       Display Order
+Flow Summary:
+Step [1]: Add a restaurant to the system.
+Step [2]: Add a menu item to the restaurant.
+Step [3]: Menu items are stored in a linked list in the restaurant.
+Step [4]: A customer places an order, which references menu items from the linked list.
+Step [5]: The order is placed in the circular queue for processing.
+Step [6]: The system processes the next order from the queue, displays its details, and removes it from the queue.
+This setup creates an effective way to manage restaurants, menu items, orders, and a circular order queue for processing customer requests.
+
+
+
