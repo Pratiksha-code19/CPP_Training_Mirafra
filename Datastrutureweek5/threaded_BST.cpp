@@ -1,4 +1,4 @@
-//threaded
+//threaded bst
 #include<bits/stdc++.h>
 using namespace std;
 class Node{
